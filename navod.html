@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+		<title>WAP projekt: validátor formulářů</title>
+	</head>
+	<body>
+		<h1>WAP projekt: validátor formulářů - návod</h1>
+
+		<h2>Informace</h2>
+		<p>Autor: Bc. Milan Pála, xpalam00@stud.fit.vutbr.cz</p>
+		<p>Předmět WAP, školní rok 2010/2011</p>
+
+		<h2>Popis aplikace</h2>
+		<p>Aplikace umožní nastavit validační pravidla pro vstupní prvky formuláře <strong>input typu text</strong> a pro vstupní prvky <strong>textarea</strong>. Každému prvku umožnuje nastavit libobolnou kombinaci následujících pravidel:</p>
+		<ul>
+			<li>minimální požadovanou délku textu,</li>
+			<li>maximální požadovanou délku textu,</li>
+			<li>shodu zadaného textu s regulárním výrazem,</li>
+			<li>povinné nebo nepovinné pole.</li>
+		</ul>
+		<p>Pokud je pole nepovinné, nemusí splňovat žádná další omezení. Běheme zadávání se dynamicky kontrolují zadaná kritéria. <strong>Nevyhovující, vyhovující i volitelné prvky jsou označeny CSS třídou</strong>, kterou je možné změnit grafický způsob zobrazení stavu. K elementu je možné uvést v HTML kódu místo, kde se zobrazí chybová zpráva. Dokud nejsou všechny prvky správně zadané, není možné dokument odeslat (odesílací tlačítko je zakázané).</p>
+
+		<h3>Rozšíření nad rámec zadání</h3>
+		<ul>
+			<li>Kromě elementů input typu text je možné pravidla aplikovat na elementy textarea.</li>
+			<li>Prvky se přímo nepodbarvují, špatně zadaným, správně zadaným i volitelným prvkům je nastavována CSS třída, pomocí které je možné ovlivnit grafický vzhled. Funkce neovlivňuje ostatní elementům nastavené třídy.</li>
+			<li>V HTML dokumentu je možné vyznačit místo, kam se zobrazí případná chybová zpráva daná validačním pravidlem.</li>
+			<li>Validační pravidlo lze zadat nejen jednomu elementu (např. <tt>document.getElementById('...').validator(...)</tt>), ale také množině elementů (např. <tt>document.getElementsByName('...').validator(...)</tt>).
+		</ul>
+
+		<h2>Požadavky pro chod aplikace</h2>
+  		<ul>
+			<li>Prohlížeče: Firefox, Chrome, IE8+</li>
+			<li>Standardní režim zobrazení prohlížeče</li>
+		</ul>
+
+		<h2>Začlenění validátoru do stránek</h2>
+		<p>Veškerý kód validátoru je v souboru <tt>validator.js</tt>. Do stránky se začlení např.: <tt>&lt;script type="text/javascript" src="validator.js"&gt;&lt;/script&gt;</tt>. Přednastavený vzhled je uložen v souboru <tt>validator.css</tt>.</p>
+		<p>Všechny pravidla se nastavují pomocí funkce <tt>validator('pravidlo', 'omezeni')</tt> aplikované na konkrétní element nebo množinu elementů po načtení stránky nebo DOMu stránky.</p>
+		<pre>
+window.onload = function()
+{
+	document.getElementById('jmeno').validator('min', 4).validator('max', 10); // minimální délka vstupu 4 znaky, maximální 10 znaků
+	document.getElementsByTagName('textarea').validator('max', 1000); // maximální délka vstupu každého elementu textarea je 1000 znaků
+}
+		</pre>
+
+		<h2>API</h2>
+		<p>Možné nastavení validátoru: <tt>.validator('pravidlo', 'omezeni')</tt>.</p>
+		<table border="1">
+		<tr>
+			<th>Hodnoty parametru 'pravidlo'</th><th>Popis</th><th>Možné hodnoty parametru 'omezeni'</th>
+		</tr>
+		<tr>
+			<td>min</td><td>minimální délka vstupu</td><td>Integer, např. 10</td>
+		</tr>
+               <td>max</td><td>maximální délka vstupu</td><td>Integer, např. 1000</td>
+		<tr>
+		</tr>
+               <td>volitelny</td><td>nastavení volitelnosti vstupu</td><td>Boolean, true/false</td>
+		<tr>
+		</tr>
+               <td>vzor</td><td>shoda vstupu se zadaným vzorem</td><td>String, vzor splňující požadavky třídy RegExp, např. /[a-z]+/</td>
+		</tr>
+		<tr>
+			<td>ostatní</td><td colspan="2">dané pravidlo se neaplikuje a je zobrazena chybová zpráva</td>
+		</tr>
+		</table>
+
+		<p>Při splnění/nesplnění validačních pravidel se patřičnému elementu nastaví CSS třída:</p>
+		<table border="1">
+			<tr>
+				<th>Stav prvku</th><th>Nastavovaná CSS třída</th>
+			</tr>
+			<tr>
+				<td>validní</td><td>class="valid-ok"</td>
+			</tr>
+			<tr>
+				<td>nevalidní</td><td>class="valid-error"</td>
+			</tr>
+			<tr>
+				<td>volitelný, prázdný</td><td>class="valid-optional"</td>
+			</tr>
+		</table>
+
+		<h3>Zobrazení chybové zprávy</h3>
+		<p>Každému vstupnímu elementu lze uvést element, ve kterém se zobrazí případný důvod nevalidace. Pokud vstupní element obsahuje atribut ID, nalezne se element se stejným ID a příponou "-error" (např. "jmeno" vs. "jmeno-error"), do kterého se vloží chybová zpráva.</p>
+	</body>
+</html>

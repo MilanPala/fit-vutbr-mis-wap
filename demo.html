@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+		<title>WAP projekt: validátor formulářů</title>
+		<script type="text/javascript" src="validator.js"></script>
+		<link type="text/css" rel="stylesheet" href="validator.css" />
+		<script type="text/javascript">
+			window.onload = function()
+			{
+				document.getElementById("jmeno").validator('max', 4).validator('min', 2);
+				document.getElementById("vek").validator('vzor', /^\d+$/).validator('volitelny', true);
+				document.getElementById("informace").validator('max', 10).validator('volitelny', true);
+
+                    document.getElementById("ulice").validator('volitelny', false);
+                    document.getElementById("cp").validator('vzor', /^\d+$/).validator('volitelny', false);
+                    document.getElementById("psc").validator('vzor', /^\d{3}\W?\d{2}$/).validator('volitelny', false);
+				document.getElementById("obec").validator('volitelny', false);
+			}
+		</script>
+		<style type="text/css">
+		label, .label			{display: block;}
+		input + label			{display: inline;}
+		form p				{margin-bottom: 1em;}
+
+		.demo-form				{font-size: 20px; font-family: Tahoma, sans-serif;}
+		.demo-form label			{float: left; width: 150px; text-align: right; margin-right: 10px;}
+		.demo-form input[type=text]	{border: 1px solid; border-radius: 3px; font-size: 20px; padding: 3px;}
+		.demo-form .valid-ok		{color: #080; background: #fff;}
+		.demo-form .valid-error		{background: #d00;}
+		</style>
+	</head>
+	<body>
+		<h1>WAP projekt: validátor formulářů - DEMO</h1>
+
+		<h2>Informace</h2>
+  		<p>Autor: Bc. Milan Pála, xpalam00@stud.fit.vutbr.cz</p>
+		<p>Předmět WAP, školní rok 2010/2011</p>
+
+		<p>Návod: <a href="navod.html">navod.html</a></p>
+
+		<h2>Demo 1</h2>
+		<p>Použitá validační pravidla:</p>
+		<ul>
+			<li>Jméno: minimální počet znaků 2, maximální počet znaků 4</li>
+			<li>Věk: volitelný, vzor: /^\d+$/</li>
+			<li>Informace: volitelný, maximální počet znaků 10</li>
+		</ul>
+
+		<form action="index.html" method="get">
+			<fieldset>
+				<legend>Informace o uživateli</legend>
+				<p><label for="jmeno">Jméno</label> <input type="text" id="jmeno" class="jmeno" /> <span id="jmeno-error"></span></p>
+				<p><label for="vek">Věk</label> <input type="text" id="vek" /> <span id="vek-error"></span></p>
+				<p><label for="informace">Informace</label> <textarea id="informace" rows="5" cols="20"></textarea></p>
+			</fieldset>
+			<p><input type="submit" value="Odeslat" /> <input type="reset" value="Vynulovat formulář" /></p>
+		</form>
+
+		<h2>Demo 2</h2>
+		<p>Použitá validační pravidla:</p>
+		<ul>
+			<li>Ulice: povinný</li>
+			<li>Číslo popisné: povinný, vzor: /^\d+$/</li>
+			<li>PSČ: povinný, vzor: /^\d{3}\W?\d{2}$/</li>
+			<li>Obec: povinný</li>
+		</ul>
+
+		<form action="index.html" method="get" class="demo-form">
+               <p><input type="submit" value="Odeslat" /> <input type="reset" value="Vynulovat formulář" /></p>
+			<fieldset>
+				<legend>Adresa</legend>
+				<p><label for="ulice">Ulice</label> <input type="text" id="ulice" /> <span id="ulice-error"></span></p>
+				<p><label for="cp">Číslo popisné</label> <input type="text" id="cp" /> <span id="cp-error"></span></p>
+				<p><label for="psc">PSČ</label> <input type="text" id="psc" /> <span id="psc-error"></span></p>
+                    <p><label for="obec">Obec</label> <input type="text" id="obec" /> <span id="obec-error"></span></p>
+			</fieldset>
+			<p><input type="submit" value="Odeslat" /> <input type="reset" value="Vynulovat formulář" /></p>
+		</form>
+	</body>
+</html>

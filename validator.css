@@ -1,0 +1,3 @@
+.valid-ok		{background-color: #0f0;} /* Tøída elementu, který prošel validací */
+.valid-error		{background-color: #f00;} /* Tøída elementu, který neprošel validací */
+.valid-optional		{} /* Tøída volitelného elementu bez zadané hodnoty */
